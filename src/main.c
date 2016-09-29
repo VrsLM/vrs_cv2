@@ -28,6 +28,7 @@ SOFTWARE.
 
 /* Includes */
 #include <stddef.h>
+#include <stdio.h>
 #include "stm32l1xx.h"
 
 
@@ -51,9 +52,9 @@ int main(void)
   int i = 0;
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
   //uloha1
-  /*
+/*
    GPIOA->MODER |= (uint32_t) 0b01<<10;
    GPIOA->OTYPER &= ~(uint32_t) 0<<5;
    GPIOA->PUPDR |= (uint32_t) 0b01<<10;
@@ -65,12 +66,14 @@ int main(void)
    GPIOA->BSRRL |= (uint32_t) 0b01<<5;
    GPIOA->BSRRH |= (uint32_t) 0b01<<5;
 */
-
+  int button;
   //uloha2
 
-  GPIOA->MODER &= ~(uint32_t) 0b00<<26;
-  GPIOA->OTYPER &= ~(uint32_t) 0<<13;
-  GPIOA->PUPDR &= ~(uint32_t) 0b00<<26;
+  GPIOC->MODER &= ~(uint32_t) 0b00<<26;
+  GPIOC->OTYPER &= ~(uint32_t) 0b01<<13;
+  GPIOC->PUPDR &= (uint32_t) 0b00<<26;
+
+  button = ((GPIOC -> IDR) & 0b01<<13 ) >> 13;
 
 
   /* Infinite loop */
