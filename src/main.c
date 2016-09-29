@@ -50,6 +50,20 @@ int main(void)
 {
   int i = 0;
 
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+
+   GPIOA->MODER |= (uint32_t) 0b01<<10;
+   GPIOA->OTYPER &= ~(uint32_t) 0<<5;
+   GPIOA->PUPDR |= (uint32_t) 0b01<<10;
+   GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
+
+   GPIOA->ODR |= (uint32_t) 0b01<<5;
+   GPIOA->ODR &= ~(uint32_t) 0b01<<5;
+
+   GPIOA->BSRRL |= (uint32_t) 0b01<<5;
+   GPIOA->BSRRH |= (uint32_t) 0b01<<5;
+
+
   /**
   *  IMPORTANT NOTE!
   *  See the <system_*.c> file and how/if the SystemInit() function updates 
@@ -74,6 +88,7 @@ int main(void)
   while (1)
   {
 	i++;
+	GPIOA->ODR ^= (uint32_t) 0b01<<5;
   }
   return 0;
 }
@@ -95,6 +110,7 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* Infinite loop */
   while (1)
   {
+
   }
 }
 #endif
