@@ -52,6 +52,8 @@ int main(void)
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
+  //uloha1
+  /*
    GPIOA->MODER |= (uint32_t) 0b01<<10;
    GPIOA->OTYPER &= ~(uint32_t) 0<<5;
    GPIOA->PUPDR |= (uint32_t) 0b01<<10;
@@ -62,7 +64,24 @@ int main(void)
 
    GPIOA->BSRRL |= (uint32_t) 0b01<<5;
    GPIOA->BSRRH |= (uint32_t) 0b01<<5;
+*/
 
+  //uloha2
+
+  GPIOA->MODER &= ~(uint32_t) 0b00<<26;
+  GPIOA->OTYPER &= ~(uint32_t) 0<<13;
+  GPIOA->PUPDR &= ~(uint32_t) 0b00<<26;
+
+
+  /* Infinite loop */
+  while (1)
+  {
+	i++;
+	//uloha1
+	//GPIOA->ODR ^= (uint32_t) 0b01<<5;
+  }
+  return 0;
+}
 
   /**
   *  IMPORTANT NOTE!
@@ -84,14 +103,7 @@ int main(void)
   /* TODO - Add your application code here */
 
 
-  /* Infinite loop */
-  while (1)
-  {
-	i++;
-	GPIOA->ODR ^= (uint32_t) 0b01<<5;
-  }
-  return 0;
-}
+
 
 #ifdef  USE_FULL_ASSERT
 
