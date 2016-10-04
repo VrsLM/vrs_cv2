@@ -54,6 +54,7 @@ int main(void)
   int k = 0;
   int mode = 0;
   int butt_1 = 0;
+  uint8_t button;
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
@@ -70,7 +71,7 @@ int main(void)
    GPIOA->BSRRL |= (uint32_t) 0b01<<5;
    GPIOA->BSRRH |= (uint32_t) 0b01<<5;
 */
-  uint8_t button;
+
 
   //uloha2
 
@@ -78,7 +79,7 @@ int main(void)
   GPIOC->OTYPER &= ~(uint32_t) 0b01<<13;
   GPIOC->PUPDR &= ~(uint32_t) 0b11<<26;
 
-  //button = ((GPIOC -> IDR) & 0b01<<13);
+
 
 
 
@@ -86,9 +87,11 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
+
+
 	//i++;
 	  //uloha2
-	  //button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+	 // button = ((GPIOC -> IDR) & 0b01<<13) >>13;
 
 	  //uloha1
 	  //GPIOA->ODR ^= (uint32_t) 0b01<<5;
@@ -106,7 +109,7 @@ int main(void)
 */
 	  //uloha3 _2
 /*
-	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+	  button = ((GPIOC -> IDR) & 0b01<<13) >>13;
 
 	  if(button == 0)
 	  {
@@ -120,10 +123,10 @@ int main(void)
 */
 
 	  //uloha3_3
-
+/*
 	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
 
-	  if(button == 1 && butt_1 == 0){
+	  if(button == 0 && butt_1 == 1){
 	  		 mode = (mode + 1)%2;
 	  	}
 	  if (mode == 1)
@@ -131,10 +134,9 @@ int main(void)
 	  else if (mode == 0)
 		  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
 
+	  butt_1 = button;
 
-	butt_1 = button;
-
-
+*/
   }
   return 0;
 }
