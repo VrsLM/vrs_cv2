@@ -32,6 +32,7 @@ SOFTWARE.
 #include "stm32l1xx.h"
 
 
+
 /* Private typedef */
 /* Private define  */
 /* Private macro */
@@ -50,38 +51,90 @@ SOFTWARE.
 int main(void)
 {
   int i = 0;
+  int k = 0;
+  int mode = 0;
+  int butt_1 = 0;
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
   //uloha1
-/*
-   GPIOA->MODER |= (uint32_t) 0b01<<10;
-   GPIOA->OTYPER &= ~(uint32_t) 0<<5;
-   GPIOA->PUPDR |= (uint32_t) 0b01<<10;
-   GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
 
+   GPIOA->MODER |= (uint32_t) 0b01<<10;
+   GPIOA->OTYPER &= ~(uint32_t) 0b01<<5;
+   GPIOA->PUPDR |= (uint32_t) 0b01<<10;
+   GPIOA->OSPEEDR |=(uint32_t) 0b11<<10;
+/*
    GPIOA->ODR |= (uint32_t) 0b01<<5;
    GPIOA->ODR &= ~(uint32_t) 0b01<<5;
 
    GPIOA->BSRRL |= (uint32_t) 0b01<<5;
    GPIOA->BSRRH |= (uint32_t) 0b01<<5;
 */
-  int button;
+  uint8_t button;
+
   //uloha2
 
-  GPIOC->MODER &= ~(uint32_t) 0b00<<26;
+  GPIOC->MODER &= ~(uint32_t) 0b11<<26;
   GPIOC->OTYPER &= ~(uint32_t) 0b01<<13;
-  GPIOC->PUPDR &= (uint32_t) 0b00<<26;
+  GPIOC->PUPDR &= ~(uint32_t) 0b11<<26;
 
-  button = ((GPIOC -> IDR) & 0b01<<13 ) >> 13;
+  //button = ((GPIOC -> IDR) & 0b01<<13);
+
+
 
 
   /* Infinite loop */
   while (1)
   {
-	i++;
-	//uloha1
-	//GPIOA->ODR ^= (uint32_t) 0b01<<5;
+	//i++;
+	  //uloha2
+	  //button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
+	  //uloha1
+	  //GPIOA->ODR ^= (uint32_t) 0b01<<5;
+
+//uloha3 _1
+/*
+			  for(k=0;k<5000; k++)
+			  {
+				  GPIOA->ODR |= (uint32_t) 0b01<<5;
+			  }
+
+			  for(k=0;k<5000; k++){
+			  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
+			  }
+*/
+	  //uloha3 _2
+/*
+	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
+	  if(button == 0)
+	  {
+		//  GPIOA->ODR |= (uint32_t) 0b01<<5;
+		  GPIOA->BSRRL |= (uint32_t) 0b01<<5;
+	  }
+	  else{
+		//  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
+		  GPIOA->BSRRH |= (uint32_t) 0b01<<5;
+	  }
+*/
+
+	  //uloha3_3
+
+	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
+	  if(button == 1 && butt_1 == 0){
+	  		 mode = (mode + 1)%2;
+	  	}
+	  if (mode == 1)
+		  GPIOA->ODR ^= (uint32_t) 0b01<<5;
+	  else if (mode == 0)
+		  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
+
+
+	butt_1 = button;
+
+
   }
   return 0;
 }
