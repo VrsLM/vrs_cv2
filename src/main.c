@@ -50,87 +50,39 @@ SOFTWARE.
 */
 int main(void)
 {
+
   int i = 0;
   int k = 0;
-  int mode = 0;
-  int butt_1 = 0;
   uint8_t button;
 
+  //cv3
+  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitTypeDef GPIO_InitStructure;
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
-  //uloha1
-
-   GPIOA->MODER |= (uint32_t) 0b01<<10;
-   GPIOA->OTYPER &= ~(uint32_t) 0b01<<5;
-   GPIOA->PUPDR |= (uint32_t) 0b01<<10;
-   GPIOA->OSPEEDR |=(uint32_t) 0b11<<10;
-/*
-   GPIOA->ODR |= (uint32_t) 0b01<<5;
-   GPIOA->ODR &= ~(uint32_t) 0b01<<5;
-
-   GPIOA->BSRRL |= (uint32_t) 0b01<<5;
-   GPIOA->BSRRH |= (uint32_t) 0b01<<5;
-*/
+  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_40MHz;
+  GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+  GPIO_InitStruct.GPIO_Pin  = GPIO_Pin_5;
+  GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 
-  //uloha2
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 
-  GPIOC->MODER &= ~(uint32_t) 0b11<<26;
-  GPIOC->OTYPER &= ~(uint32_t) 0b01<<13;
-  GPIOC->PUPDR &= ~(uint32_t) 0b11<<26;
+  GPIO_Init(GPIOC, & GPIO_InitStructure);
 
 
   /* Infinite loop */
   while (1)
   {
-
-
-	//i++;
-	  //uloha2
-	 // button = ((GPIOC -> IDR) & 0b01<<13) >>13;
-
-	  //uloha1
-	  //GPIOA->ODR ^= (uint32_t) 0b01<<5;
-
-//uloha3 _1
-/*
-			  for(k=0;k<5000; k++)
-			  {
-				  GPIOA->ODR |= (uint32_t) 0b01<<5;
-			  }
-
-			  for(k=0;k<5000; k++){
-			  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
-			  }
-*/
-	  //uloha3 _2
-/*
-	   button = ((GPIOC -> IDR) & 0b01<<13) >>13;
-
-	  if(button == 0)
-	  {
-		  GPIOA->BSRRL |= (uint32_t) 0b01<<5;
-	  }
-	  else{
-		  GPIOA->BSRRH |= (uint32_t) 0b01<<5;
-	  }
-
-*/
-	  //uloha3_3
-/*
-	  button = ((GPIOC -> IDR) & 0b01<<13) >>13;
-
-	  if(button == 0 && butt_1 == 1){
-	  		 mode = (mode + 1)%2;
-	  	}
-	  if (mode == 1)
-		  GPIOA->ODR ^= (uint32_t) 0b01<<5;
-	  else if (mode == 0)
-		  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
-
-	  butt_1 = button;
-*/
+	  //cv3_uloha1
+	  //GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_SET); // zasvietenie LED
+	  //GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_RESET); // Vypnutie Led
 
   }
   return 0;
