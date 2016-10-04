@@ -84,6 +84,9 @@ int main(void)
 	  //GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_SET); // zasvietenie LED
 	  //GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_RESET); // Vypnutie Led
 
+	  //cv3_uloha2
+	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
   }
   return 0;
 }
