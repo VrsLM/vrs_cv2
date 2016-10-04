@@ -58,6 +58,7 @@ int main(void)
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+
   //uloha1
 
    GPIOA->MODER |= (uint32_t) 0b01<<10;
@@ -78,10 +79,6 @@ int main(void)
   GPIOC->MODER &= ~(uint32_t) 0b11<<26;
   GPIOC->OTYPER &= ~(uint32_t) 0b01<<13;
   GPIOC->PUPDR &= ~(uint32_t) 0b11<<26;
-
-
-
-
 
 
   /* Infinite loop */
@@ -109,22 +106,20 @@ int main(void)
 */
 	  //uloha3 _2
 /*
-	  button = ((GPIOC -> IDR) & 0b01<<13) >>13;
+	   button = ((GPIOC -> IDR) & 0b01<<13) >>13;
 
 	  if(button == 0)
 	  {
-		//  GPIOA->ODR |= (uint32_t) 0b01<<5;
 		  GPIOA->BSRRL |= (uint32_t) 0b01<<5;
 	  }
 	  else{
-		//  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
 		  GPIOA->BSRRH |= (uint32_t) 0b01<<5;
 	  }
-*/
 
+*/
 	  //uloha3_3
 /*
-	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+	  button = ((GPIOC -> IDR) & 0b01<<13) >>13;
 
 	  if(button == 0 && butt_1 == 1){
 	  		 mode = (mode + 1)%2;
@@ -135,8 +130,8 @@ int main(void)
 		  GPIOA->ODR &= ~(uint32_t) 0b01<<5;
 
 	  butt_1 = button;
-
 */
+
   }
   return 0;
 }
