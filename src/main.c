@@ -89,13 +89,21 @@ int main(void)
 
 
 	  //cv3_uloha3_1
-		  for(i=0; i<5000; i++){
+	/*	  for(i=0; i<5000; i++){
 			  GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_SET); // zasvietenie LED
 		  }
 		  for(i=0; i<5000; i++){
 			  GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_RESET); // Vypnutie Led
 		  }
-
+*/
+	  //cv3_uloha3_2
+	  button = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+	  if(button==1){
+		  GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_SET); // zasvietenie LED
+	  }
+	  else{
+		  GPIO_WriteBit(GPIOA, GPIO_Pin_5, Bit_RESET); // zasvietenie LED
+	  }
 
   }
   return 0;
